@@ -1,12 +1,68 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>For Nour — October 6</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body>
-<div id="intro"><div class="intro-heart">♥</div><p class="eyebrow">OCTOBER 06 · A LITTLE SECRET</p><h1>For <span>Nour</span></h1><p>Some things are better opened slowly.</p><button id="openBtn">Open this little world <b>→</b></button></div>
-<div id="site" class="hidden"><div class="paper-layer"></div><div class="leaf-layer"></div><header><span class="mini-heart">♥</span><span id="counter">01 / 08</span></header><main>
-<section class="page active"><p class="eyebrow">A LETTER IN DISGUISE</p><h2>For the girl<br><em>October kept.</em></h2><p class="lead">There are birthdays, and then there are dates that somehow feel warmer just because a certain person was born on them.</p><div class="date">06 · 10 · YOU</div><button class="next">Turn the page →</button></section>
-<section class="page"><p class="eyebrow">PAGE TWO</p><h2>If you're reading this…</h2><div class="polaroid"><div>✦<small>your favorite memory goes here</small></div><span>Nour, somewhere between ordinary days.</span></div><p class="copy">I wanted to make you something that doesn't disappear after the candles are blown out. Something you can come back to whenever you want.</p><button class="next">Keep going →</button></section>
-<section class="page"><p class="eyebrow">THE LITTLE THINGS</p><h2>Things I could never<br><em>fit into one sentence.</em></h2><div class="cards"><article><b>01</b><h3>The time</h3><p>I love how even a completely normal moment becomes a memory when I'm spending it with you.</p></article><article><b>02</b><h3>Your presence</h3><p>Some people fill a room with noise. You have this quieter way of making it feel alive.</p></article><article><b>03</b><h3>The details</h3><p>The tiny conversations, stupid jokes, pauses, and random moments matter more than they probably know.</p></article></div><button class="next">There's more →</button></section>
-<section class="page"><p class="eyebrow">A PHILOSOPHICAL LETTER</p><h2>About time,<br><em>and you.</em></h2><div class="letter"><p>Dear Nour,</p><p>Maybe the strange thing about time is that we spend most of our lives trying to measure it, while the moments that matter most refuse to be measured.</p><p>A minute can feel endless, and an entire evening can disappear before you even notice. I think that is what I love about spending time with you: <strong>time stops feeling like something I'm losing.</strong> It becomes something I'm actually living.</p><p>I don't need every moment with you to be extraordinary. I like the ordinary ones too — the conversations that wander nowhere, the laughs that make no sense later, the quiet moments where nothing needs to be said. Somehow, they stay.</p><p>Maybe people are not remembered by the amount of time they were in our lives, but by the way they changed the feeling of that time. And you have made some of mine softer, brighter, and much easier to remember.</p><p>So if this birthday gives me one wish, it isn't for some perfect future. It's simpler than that: <strong>I hope there are many more ordinary days where I get to say, “I'm glad I spent today with you.”</strong></p><p class="signature">— someone who genuinely loves the time he gets to spend with you.</p></div><button class="next">One more thing →</button></section>
-<section class="page"><p class="eyebrow">FOR OCTOBER'S GIRL</p><div class="vinyl">♫</div><h2>Some songs feel<br><em>like a season.</em></h2><p class="copy">And some songs somehow find the exact person you were thinking about.</p><a class="song" href="https://www.youtube.com/results?search_query=Girls+Fall+in+Love+in+October" target="_blank" rel="noopener">Open it ↗</a><p class="tiny">tap the button above</p><button class="next">Let October play →</button></section>
-<section class="page"><p class="eyebrow">A SMALL TIMELINE</p><h2>Moments don't need<br><em>to be grand.</em></h2><div class="timeline"><div><b>01 · First moments</b><p>The beginning of something you didn't know would become meaningful.</p></div><div><b>02 · The random days</b><p>The ones that weren't planned, but somehow became favorites.</p></div><div><b>03 · Right now</b><p>October 6. Your birthday. A page made just because you're you.</p></div></div><button class="next">Almost there →</button></section>
-<section class="page"><p class="eyebrow">A WISH, NOT A SPEECH</p><h2>I hope life gives<br><em>you softness.</em></h2><div class="wishes"><p>♡ mornings that don't feel rushed</p><p>♡ people who understand your silence</p><p>♡ reasons to laugh until your stomach hurts</p><p>♡ courage when life gets complicated</p><p>♡ beautiful surprises you never saw coming</p><p>♡ enough October evenings to make a lifetime of memories</p></div><button class="next">The last page →</button></section>
-<section class="page final"><div class="final-heart">♥</div><p class="eyebrow">OCTOBER 06</p><h2>Happy Birthday,<br><em>Nour.</em></h2><p class="lead">Thank you for making ordinary time feel worth remembering.</p><div class="line"></div><p class="tiny">Keep this little corner of October.</p><button id="replay">↻ read it again</button></section>
-</main><nav id="dots"></nav></div><script src="script.js"></script></body></html>
+const intro = document.getElementById("intro");
+const site = document.getElementById("site");
+const openBtn = document.getElementById("openBtn");
+const pages = document.querySelectorAll(".page");
+const nextButtons = document.querySelectorAll(".next");
+const counter = document.getElementById("counter");
+const dots = document.getElementById("dots");
+const replay = document.getElementById("replay");
+
+let currentPage = 0;
+
+// Create navigation dots
+pages.forEach((page, index) => {
+  const dot = document.createElement("button");
+  dot.className = "dot";
+  dot.setAttribute("aria-label", `Page ${index + 1}`);
+
+  dot.addEventListener("click", () => {
+    showPage(index);
+  });
+
+  dots.appendChild(dot);
+});
+
+const dotButtons = dots.querySelectorAll(".dot");
+
+function showPage(index) {
+  if (index < 0 || index >= pages.length) return;
+
+  pages.forEach((page, i) => {
+    page.classList.toggle("active", i === index);
+  });
+
+  dotButtons.forEach((dot, i) => {
+    dot.classList.toggle("active", i === index);
+  });
+
+  currentPage = index;
+
+  if (counter) {
+    counter.textContent =
+      String(index + 1).padStart(2, "0") +
+      " / " +
+      String(pages.length).padStart(2, "0");
+  }
+}
+
+openBtn.addEventListener("click", () => {
+  intro.classList.add("hidden");
+  site.classList.remove("hidden");
+  showPage(0);
+});
+
+nextButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    showPage(currentPage + 1);
+  });
+});
+
+if (replay) {
+  replay.addEventListener("click", () => {
+    site.classList.add("hidden");
+    intro.classList.remove("hidden");
+    showPage(0);
+  });
+}
+
+showPage(0);
